@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.first_message, .second_message, .third_message{
+    position: absolute;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 3s ease;
+} 
+
+#second_message_{
+    opacity: 0;
+}
