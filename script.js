@@ -81,11 +81,25 @@ function startCounting() {
     let interval = setInterval(function() {
         counterElement.innerText = counter;
         counter++;
-        if (counter > 20) {
-            // clearInterval(interval);
+        // console.log(counter);
+        if (counter > 60) {
             document.getElementById("second_message_").style.opacity = 1;
         }
-        if (counter > 31) {
+        if (counter > 65) {
+            document.querySelector("#second_message_").innerText = "Kiên nhẫn 1 chút nữa nhé!";
+        }
+        if (counter > 80) {
+            document.querySelector("#second_message_").innerText = "Sắp thành công rồi.";
+        }
+        if (counter > 90) {
+            document.getElementById("second_message_").style.opacity = 0;
+            document.getElementById("second_message__").style.opacity = 1;
+        }
+        if (counter > 110) {
+            document.getElementById("second_message__").style.opacity = 0;
+            document.getElementById("second_message___").style.opacity = 1;
+        }
+        if (counter > 130) {
             clearInterval(interval);
             document.getElementById("second_message").remove();
             document.getElementById("third_message").style.opacity = 1;
@@ -106,7 +120,7 @@ function startShow() {
                 // setTimeout(countdown, 2000);
             }, 1000);
         }
-        if (count > 15) {
+        if (count > 20) {
             clearInterval(interval);
             document.getElementById("first_message").remove();
             document.getElementById("second_message").style.opacity = 1;
