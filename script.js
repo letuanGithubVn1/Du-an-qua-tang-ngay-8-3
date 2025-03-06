@@ -4,6 +4,11 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+const fireworkSound = new Audio("fireworks-29629.mp3");
+const backgroundMusic = new Audio("comedy-background-music-309055.mp3");
+const clockSound = new Audio("ticking-clock-sound-effect-1-mp3-edition-264451.mp3");
+
+
 class Firework {
     constructor(x, y, color) {
         this.x = x;
@@ -71,6 +76,10 @@ function animate() {
         firework.draw();
     });
     fireworks = fireworks.filter(firework => firework.particles.length > 0 || !firework.exploded);
+    // console.log(fireworks.length)
+    // if (fireworks.length === 0) {
+    //     backgroundMusic.play();
+    // }
     requestAnimationFrame(animate);
 }
 
@@ -78,7 +87,7 @@ function animate() {
 function startCounting() {
     let counter = 0;
     let counterElement = document.getElementById("counter");
-    let interval = setInterval(function() {
+    let interval = setInterval(function () {
         counterElement.innerText = counter;
         counter++;
         // console.log(counter);
@@ -92,6 +101,7 @@ function startCounting() {
             document.querySelector("#second_message_").innerText = "Sắp thành công rồi.";
         }
         if (counter > 90) {
+            enableSound(counter)
             document.getElementById("second_message_").style.opacity = 0;
             document.getElementById("second_message__").style.opacity = 1;
         }
@@ -103,9 +113,10 @@ function startCounting() {
             clearInterval(interval);
             document.getElementById("second_message").remove();
             document.getElementById("third_message").style.opacity = 1;
+            enableSound(counter)
             restartFireworks();
         }
-    }, 1000); 
+    }, 1000);
 }
 
 
@@ -113,6 +124,7 @@ function startShow() {
     let count = 0;
     let interval = setInterval(() => {
         createFirework();
+        enableSound(count);
         count++;
         if (count > 8) {
             setTimeout(() => {
@@ -130,14 +142,37 @@ function startShow() {
 }
 
 function restartFireworks() {
-    setTimeout(() => {
-        let burstCount = 6;
-        for (let i = 0; i < burstCount; i++) {
-            createFirework();
-        }
-    }, 1000);
+    let burstCount = 10;
+    for (let i = 0; i < burstCount; i++) {
+        createFirework();
+    }
 }
 
 animate();
-startShow(); 
+startShow();
 
+
+function enableSound(count) {
+    console.log(count)
+    clockSound.loop = true;
+    backgroundMusic.loop = true;
+    fireworkSound.play();
+    if(count === 20){
+        fireworkSound.muted = true;
+        clockSound.play();
+    }
+    if(count === 91){
+        // clockSound.muted = true;
+        console.log(1)
+        backgroundMusic.play();
+    }
+    if(count === 131){
+        clockSound.muted = true;
+        backgroundMusic.muted = true;
+        fireworkSound.muted = false;
+    }
+    document.removeEventListener("click", enableSound);
+    document.removeEventListener("touchstart", enableSound);
+}
+document.addEventListener("click", enableSound);
+document.addEventListener("touchstart", enableSound);
