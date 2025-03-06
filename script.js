@@ -142,10 +142,12 @@ function startShow() {
 }
 
 function restartFireworks() {
-    let burstCount = 10;
-    for (let i = 0; i < burstCount; i++) {
-        createFirework();
-    }
+    setTimeout(() => {
+        let burstCount = 6;
+        for (let i = 0; i < burstCount; i++) {
+            createFirework();
+        }
+    }, 1000);
 }
 
 animate();
